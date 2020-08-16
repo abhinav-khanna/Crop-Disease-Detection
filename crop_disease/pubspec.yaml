@@ -31,6 +31,10 @@ dev_dependencies:
   path_provider:
   path:
   image_picker:
+  tflite:
+
+
+
 
 
 
@@ -39,6 +43,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/labels.txt
+    - assets/model_unquant.tflite
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

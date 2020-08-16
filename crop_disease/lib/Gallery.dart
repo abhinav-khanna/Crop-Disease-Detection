@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:io' as io;
 
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
+
+import 'SelectedImage.dart' as selectedimage;
 
 
 class PickImageDemo extends StatefulWidget {
@@ -16,60 +18,56 @@ class PickImageDemo extends StatefulWidget {
 }
 
 class _PickImageDemoState extends State<PickImageDemo> {
-  Future<File> imageFile;
+  io.File imageURI;
+  String result;
+  String path;
 
-  pickImageFromGallery(ImageSource source) {
+  Future getImage() async {
+//    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
-      imageFile = ImagePicker.pickImage(source: source);
+      imageURI = io.File(image.path);
+      path = image.path;
     });
-  }
-
-  Widget showImage() {
-    return FutureBuilder<File>(
-      future: imageFile,
-      builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data != null) {
-          return Image.file(
-            snapshot.data,
-            width: 300,
-            height: 300,
-          );
-        } else if (snapshot.error != null) {
-          return const Text(
-            'Error Picking Image',
-            textAlign: TextAlign.center,
-          );
-        } else {
-          return const Text(
-            'No Image Selected',
-            textAlign: TextAlign.center,
-          );
-        }
-      },
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            showImage(),
-            RaisedButton(
-              child: Text("Select Image from Gallery"),
-              onPressed: () {
-                pickImageFromGallery(ImageSource.gallery);
-              },
+    return MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Image Picker Example'),
+          ),
+          body: Center(child:
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: imageURI == null
+                        ? Text('No image selected.')
+                        : Container(
+                height: 200,
+                child: Image.file(imageURI),
             ),
-          ],
-        ),
-      ),
-    );
+                  ),
+                  RaisedButton(
+                    onPressed: getImage,
+                    child: Text('Add image from gallery'),
+                  ),
+
+                  RaisedButton(
+                    child: Text('Process Image'),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => selectedimage.SelectedImage(imageURI, path)));
+                    },
+                  )
+
+                ],
+              ),
+            )
+          )
+
+          )
+        );
   }
 }

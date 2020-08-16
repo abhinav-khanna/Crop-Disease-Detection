@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
+import 'SelectedImage.dart' as selectedimage;
 
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -109,13 +110,33 @@ class DisplayPictureScreen extends StatelessWidget {
 
   const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
 
+  Image getCameraImage(){
+    return Image.file(File(imagePath));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Container(
+             height: 200,
+             child: Image.file(File(imagePath)),
+            ),
+            RaisedButton(
+              child: Text('Process Image'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => selectedimage.SelectedImage(Image.file(File(imagePath)), imagePath)));
+              },
+            )
+          ],
+        )
+
+    )
     );
   }
 }
