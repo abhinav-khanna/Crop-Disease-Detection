@@ -25,7 +25,6 @@ Future<void> main() async {
 
   runApp(
     MaterialApp(
-      theme: ThemeData.dark(),
       home: HomeScreen(
         // Pass the appropriate camera to the TakePictureScreen widget.
         camera: firstCamera,
@@ -46,30 +45,66 @@ class HomeScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Colors.lightGreen,
       appBar: AppBar(
         title: Text('Crop Disease'),
+        backgroundColor: Colors.green[900],
       ),
 
-      body: Container(
-        child: Row(
-          children: <Widget>[
-            RaisedButton(
-              child: Text('Open Camera'),
-              padding: EdgeInsets.all(10),
-              onPressed: () {
-               Navigator.push(context, MaterialPageRoute(builder: (context) => Camera.TakePictureScreen(camera: camera,))) ;
-              },
-            ),
-            
-            RaisedButton(
-              child: Text('Open Gallery'),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Gallery.PickImageDemo()));
-              },
-            )
-          ],
-        ),
-      )
+      body: Center(
+          child: Container(
+//            margin: EdgeInsets.only(top: 150, bottom: 100),
+//            padding: EdgeInsets.all(100),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(bottom: 50),
+                  child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Camera.TakePictureScreen(camera: camera,))) ;
+                      },
+                      padding: EdgeInsets.all(30),
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                        Text('Open Camera', style: TextStyle(fontSize: 30)),
+                        Icon(Icons.camera_alt)
+                        ],
+                      ),
+                    )
+
+
+                  ),
+                ),
+                
+                Container(
+                  margin: EdgeInsets.only( top: 50),
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(30),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Gallery.PickImageDemo()));
+                    },
+
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Text('Open Gallery', style: TextStyle(fontSize: 30)),
+                          Icon(Icons.image)
+                        ],
+                      ),
+                    )
+
+                  )
+                ),
+
+                
+              ],
+            ),  
+          )
+          
+        )
     );
   }
 }

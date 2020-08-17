@@ -35,14 +35,19 @@ class _PickImageDemoState extends State<PickImageDemo> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
+          backgroundColor: Colors.lightGreen,
           appBar: AppBar(
             title: Text('Image Picker Example'),
+            backgroundColor: Colors.green[900],
           ),
           body: Center(child:
             Container(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
+                    margin: EdgeInsets.only(bottom: 10),
                     child: imageURI == null
                         ? Text('No image selected.')
                         : Container(
@@ -50,17 +55,26 @@ class _PickImageDemoState extends State<PickImageDemo> {
                 child: Image.file(imageURI),
             ),
                   ),
-                  RaisedButton(
-                    onPressed: getImage,
-                    child: Text('Add image from gallery'),
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: RaisedButton(
+                      padding: EdgeInsets.all(30),
+                      onPressed: getImage,
+                      child: Text('Add image from gallery', style: TextStyle(fontSize: 20),),
+                    ),
                   ),
 
-                  RaisedButton(
-                    child: Text('Process Image'),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => selectedimage.SelectedImage(imageURI, path)));
-                    },
+                  Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: RaisedButton(
+                        padding: EdgeInsets.all(30),
+                        child: Text('Process Image', style: TextStyle(fontSize: 20),),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => selectedimage.SelectedImage(imageURI, path)));
+                        },
+                      )
                   )
+
 
                 ],
               ),

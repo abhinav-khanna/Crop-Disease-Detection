@@ -23,26 +23,55 @@ class Result extends StatelessWidget {
 
   String confidence, label;
 
-  Result(confidence, label){
+  Result(confidence, label, path){
     print('Inside Selected Image\n');
     this.confidence = confidence;
     this.label = label;
+    this.path = path;
+//    convertlabel();
 //    this.path = path;
 //    confidence = "No value assigned yet";
 //    processImage();
   }
 
+
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Colors.lightGreen,
       appBar: AppBar(
+          backgroundColor: Colors.green[900],
           title: Text('Results')
       ),
 
       body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("label:" + label),
-              Text("confidence:" + confidence)
+              Container(
+                height: 200,
+                child: Image.file(File(path)),
+              ),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Card(
+                  child: ListTile(
+                    title: Text("Disease"),
+                    subtitle: Text(label),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Card(
+                  child: ListTile(
+                    title: Text("Confidence"),
+                    subtitle: Text(confidence),
+                  ),
+                ),
+              ),
+//              Text("label:" + label),
+//              Text("confidence:" + confidence)
             ],
           )
       )

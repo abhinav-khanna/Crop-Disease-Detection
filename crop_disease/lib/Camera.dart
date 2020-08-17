@@ -49,7 +49,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Take a picture')),
+      backgroundColor: Colors.green,
+      appBar: AppBar(
+          backgroundColor: Colors.green[900],
+          title: Text('Take a picture')),
       // Wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner
       // until the controller has finished initializing.
@@ -66,6 +69,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.lightGreen,
         child: Icon(Icons.camera_alt),
         // Provide an onPressed callback.
         onPressed: () async {
@@ -117,23 +121,34 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Display the Picture')),
+      backgroundColor: Colors.lightGreen,
+      appBar: AppBar(
+          title: Text('Display the Picture'),
+          backgroundColor: Colors.green[900],),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
       body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-             height: 200,
-             child: Image.file(File(imagePath)),
-            ),
-            RaisedButton(
-              child: Text('Process Image'),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => selectedimage.SelectedImage(Image.file(File(imagePath)), imagePath)));
-              },
+        child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: 200,
+                  child: Image.file(File(imagePath)),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top:20),
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(30),
+                    child: Text('Process Image', style: TextStyle(fontSize: 20),),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => selectedimage.SelectedImage(Image.file(File(imagePath)), imagePath)));
+                    },
+                  ),
+                ),
+              ],
             )
-          ],
         )
 
     )

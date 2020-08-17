@@ -22,7 +22,7 @@ class SelectedImage extends StatelessWidget {
   String res;
   var recognitions, list;
 
-  String confidence, label;
+  String confidence, label, actual_label;
 
   SelectedImage(image, path){
     print('Inside SelectedImage\n');
@@ -57,28 +57,72 @@ class SelectedImage extends StatelessWidget {
     confidence = recognitions[0]['confidence'].toString();
     label = recognitions[0]['label'].toString();
     print("confidence:" + confidence.toString());
-    print(confidence.runtimeType);
+    print("label:" + label);
+    print(label.runtimeType);
 
 //    print(recognitions["confidence"].toString());
 
 //    list = recognitions.values.toList();
+
+    if (label == "0 Class 1")
+      {
+        actual_label = "Corn leaf spot";
+      }
+    else if ( label == "1 Class 2")
+      {
+        actual_label = "Corn Common Rust";
+      }
+    else if ( label == "2 Class 3")
+    {
+      actual_label = "Corn Healthy";
+    }
+    else if ( label == "3 Class 4")
+    {
+      actual_label = "Corn Northern Leaf Blight";
+    }
+    else if ( label == "4 Class 5")
+    {
+      actual_label = "Potato Early Blight";
+    }
+    else if ( label == "5 Class 6")
+    {
+      actual_label = "Potato Healthy";
+    }
+    else if ( label == "6 Class 7")
+    {
+      actual_label = "Potato Late Blight";
+    }
+
+    else
+      {
+        actual_label = "No value";
+      }
+
+    print("actual label:" + actual_label);
   }
 
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Colors.lightGreen,
       appBar: AppBar(
+        backgroundColor: Colors.green[900],
         title: Text('Final Selected Image')
       ),
 
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text('Processing image for Diseases......\n'),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Text('Processing image for Diseases......\n', style: TextStyle(fontSize: 30),),
+            ),
             RaisedButton(
-              child: Text('View Results'),
-              padding: EdgeInsets.all(10),
+              child: Text('View Results', style: TextStyle(fontSize: 20),),
+              padding: EdgeInsets.all(30),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => results.Result(confidence, label))) ;
+                Navigator.push(context, MaterialPageRoute(builder: (context) => results.Result(confidence, actual_label, path))) ;
               },
             )
           ],
