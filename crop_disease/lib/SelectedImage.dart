@@ -35,8 +35,8 @@ class SelectedImage extends StatelessWidget {
   void processImage() async {
     print('Waiting for res\n');
     res = await Tflite.loadModel(
-        model: "assets/model_unquant.tflite",
-        labels: "assets/labels.txt",
+        model: "assets/model_unquant_1.tflite",
+        labels: "assets/labels_1.txt",
         numThreads: 1, // defaults to 1
 //        isAsset: true, // defaults to true, set to false to load resources outside assets
 //        useGpuDelegate: false // defaults to false, set to true to use GPU delegate
