@@ -195,7 +195,7 @@ def detect1():
 	path = 'static/corn.h5'
 	if person is not None:
 		for i in person:
-			if(results_corn(path,i)):
+			if((results_corn(path,i)).any()==1):
 				return render_template('detect_true.html')
 			else:
 				return render_template('detect_false.html')
